@@ -1,31 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reddit Client New</title>
-  <link rel="stylesheet" href="./CSS/styles.css">
+    <!-- Character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO meta tags -->
+    <meta name="description" content="A Reddit client application for viewing multiple subreddits in customizable lanes">
+    <meta name="keywords" content="reddit, client, subreddit viewer">
+    
+    <!-- Page title -->
+    <title>Reddit Client New</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    
+    <!-- Preload CSS for performance -->
+    <link rel="preload" href="./CSS/styles.css" as="style">
+    <link rel="stylesheet" href="./CSS/styles.css">
 </head>
+
 <body>
-  <div class="container">
-    <div class="lane-container" id="laneContainer">
-      <!-- Lanes will be added here dynamically -->
-    </div>
-    <div class="add-lane">
-      <button id="addLaneButton">+</button>
-    </div>
-  </div>
+    <!-- Header section -->
+    <header class="main-header">
+        <h1>Reddit Client</h1>
+    </header>
 
-  <!-- Popup for adding new subreddit -->
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h3>Enter the name of subreddit</h3>
-      <input type="text" id="subredditInput" placeholder="Subreddit name">
-      <button id="addSubreddit">Add Subreddit</button>
-      <button id="closePopup">Cancel</button>
-    </div>
-  </div>
+    <!-- Main content area -->
+    <main>
+        <div class="container">
+            <!-- Container for lanes (columns) -->
+            <div class="lane-container" id="laneContainer" 
+                 role="region" 
+                 aria-label="Subreddit lanes container">
+                <!-- Lanes will be dynamically added here via JavaScript -->
+            </div>
 
-  <script src="./Javascript/script.js"></script>
+            <!-- Button container for adding new lanes -->
+            <div class="add-lane">
+                <!-- Plus button to trigger new lane addition -->
+                <button id="addLaneButton" 
+                        aria-label="Add new subreddit lane"
+                        title="Add new lane">+</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal/Popup for subreddit input -->
+    <div class="popup" 
+         id="popup" 
+         role="dialog" 
+         aria-labelledby="popupTitle" 
+         aria-hidden="true">
+        <div class="popup-content">
+            <!-- Popup header -->
+            <h3 id="popupTitle">Enter the name of subreddit</h3>
+            
+            <!-- Form for subreddit input -->
+            <form id="subredditForm" onsubmit="return false;">
+                <label for="subredditInput">Subreddit name:</label>
+                <input 
+                    type="text" 
+                    id="subredditInput" 
+                    name="subredditInput"
+                    placeholder="Enter subreddit name (e.g., 'programming')"
+                    maxlength="50"
+                    pattern="^[a-zA-Z0-9_]+$"
+                    required
+                    aria-required="true"
+                >
+                
+                <!-- Action buttons -->
+                <div class="button-group">
+                    <button type="submit" 
+                            id="addSubreddit" 
+                            aria-label="Add subreddit">
+                        Add Subreddit
+                    </button>
+                    <button type="button" 
+                            id="closePopup" 
+                            aria-label="Cancel adding subreddit">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Error message container -->
+    <div id="errorMessage" 
+         role="alert" 
+         aria-live="polite" 
+         class="error-message hidden">
+    </div>
+
+    <!-- External JavaScript file -->
+    <script src="./Javascript/script.js" defer></script>
 </body>
 </html>
